@@ -1,0 +1,29 @@
+{
+  "row_count": 17880,
+  "column_count": 18,
+  "target_counts": {
+    "0": 17014,
+    "1": 866
+  },
+  "missing_values": {
+    "salary_range": 15012,
+    "department": 11547,
+    "required_education": 8105,
+    "benefits": 7212,
+    "required_experience": 7050,
+    "function": 6455,
+    "industry": 4903,
+    "employment_type": 3471,
+    "company_profile": 3308,
+    "requirements": 2696,
+    "location": 346,
+    "description": 1,
+    "title": 0,
+    "job_id": 0,
+    "telecommuting": 0,
+    "has_questions": 0,
+    "has_company_logo": 0,
+    "fraudulent": 0
+  },
+  "duplicate_rows": 0
+}
