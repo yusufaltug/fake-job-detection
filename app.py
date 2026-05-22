@@ -28,6 +28,327 @@ def read_json_if_exists(path: Path):
         return json.load(f)
 
 
+st.markdown(
+    """
+    <style>
+        :root {
+            --app-bg: #0f1311;
+            --surface: #171d1a;
+            --surface-soft: #202823;
+            --surface-raised: #222a25;
+            --ink: #eef5f0;
+            --muted: #a7b2ab;
+            --line: rgba(238, 245, 240, 0.13);
+            --primary: #54d0ad;
+            --primary-dark: #33ad8c;
+            --accent: #8fb7ff;
+            --warning: #f0b86e;
+            --shadow: rgba(0, 0, 0, 0.34);
+        }
+
+        .stApp {
+            background:
+                linear-gradient(140deg, rgba(84, 208, 173, 0.10) 0%, transparent 30rem),
+                linear-gradient(180deg, #111714 0%, var(--app-bg) 52%, #0b0e0d 100%);
+            color: var(--ink);
+        }
+
+        [data-testid="stHeader"] {
+            background: rgba(15, 19, 17, 0.88);
+            backdrop-filter: blur(10px);
+        }
+
+        [data-testid="stAppViewContainer"] > .main .block-container {
+            max-width: 1180px;
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+        }
+
+        [data-testid="stSidebar"] {
+            background: #111613;
+            border-right: 1px solid var(--line);
+        }
+
+        [data-testid="stMarkdownContainer"],
+        [data-testid="stMarkdownContainer"] p,
+        [data-testid="stMarkdownContainer"] li,
+        [data-testid="stMarkdownContainer"] span,
+        [data-testid="stWidgetLabel"],
+        label {
+            color: var(--ink);
+        }
+
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] li {
+            color: var(--muted);
+        }
+
+        .app-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 18rem;
+            gap: 1.6rem;
+            align-items: center;
+            margin-bottom: 1.15rem;
+            padding: 1.45rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background:
+                linear-gradient(135deg, rgba(32, 40, 35, 0.94), rgba(18, 24, 21, 0.96));
+            box-shadow: 0 18px 40px var(--shadow);
+        }
+
+        .app-eyebrow {
+            margin: 0 0 0.6rem;
+            color: var(--primary);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .app-hero h1 {
+            margin: 0;
+            max-width: 15ch;
+            color: var(--ink);
+            font-size: 2.9rem;
+            line-height: 1.06;
+            letter-spacing: 0;
+        }
+
+        .app-hero p {
+            max-width: 46rem;
+            margin: 0.9rem 0 0;
+            color: var(--muted);
+            font-size: 1.03rem;
+            line-height: 1.65;
+        }
+
+        .hero-badge {
+            padding: 1rem;
+            color: var(--ink);
+            border: 1px solid rgba(84, 208, 173, 0.26);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            background: rgba(84, 208, 173, 0.08);
+        }
+
+        .hero-badge span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .hero-badge strong {
+            display: block;
+            margin-top: 0.45rem;
+            color: var(--ink);
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: 0;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin: 0 0 1.3rem;
+        }
+
+        .quick-stat {
+            min-height: 5.1rem;
+            padding: 0.95rem 1rem;
+            border: 1px solid var(--line);
+            border-top: 3px solid var(--primary);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.20);
+        }
+
+        .quick-stat:nth-child(2) {
+            border-top-color: var(--accent);
+        }
+
+        .quick-stat:nth-child(3) {
+            border-top-color: var(--warning);
+        }
+
+        .quick-stat b {
+            display: block;
+            color: var(--ink);
+            font-size: 0.98rem;
+            line-height: 1.35;
+            letter-spacing: 0;
+        }
+
+        .quick-stat small {
+            display: block;
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.35;
+        }
+
+        h1, h2, h3 {
+            color: var(--ink);
+            letter-spacing: 0;
+        }
+
+        p, li, span {
+            color: inherit;
+        }
+
+        [data-testid="stTabs"] [role="tablist"] {
+            gap: 0.4rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        [data-testid="stTabs"] [role="tab"] {
+            min-height: 2.75rem;
+            padding: 0 1rem;
+            border-radius: 8px 8px 0 0;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        [data-testid="stTabs"] [aria-selected="true"] {
+            color: var(--primary);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-bottom-color: var(--surface);
+            font-weight: 700;
+        }
+
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stTextArea"] textarea {
+            color: var(--ink);
+            border: 1px solid rgba(238, 245, 240, 0.16);
+            border-radius: 8px;
+            background: #111714;
+        }
+
+        div[data-testid="stTextInput"] input::placeholder,
+        div[data-testid="stTextArea"] textarea::placeholder {
+            color: #7f8b85;
+        }
+
+        div[data-testid="stTextInput"] input:focus,
+        div[data-testid="stTextArea"] textarea:focus {
+            border-color: rgba(84, 208, 173, 0.72);
+            box-shadow: 0 0 0 1px rgba(84, 208, 173, 0.26);
+        }
+
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            color: var(--ink);
+            border-color: rgba(238, 245, 240, 0.16);
+            border-radius: 8px;
+            background: #111714;
+        }
+
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] span,
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] svg {
+            color: var(--ink);
+            fill: var(--ink);
+        }
+
+        div[data-testid="stCheckbox"] label {
+            padding: 0.2rem 0;
+            color: var(--ink);
+        }
+
+        .stButton > button {
+            width: 100%;
+            min-height: 3rem;
+            color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface-raised);
+            font-weight: 800;
+            letter-spacing: 0;
+            box-shadow: 0 12px 24px rgba(84, 208, 173, 0.18);
+        }
+
+        .stButton > button[kind="primary"] {
+            color: #07110e;
+            border-color: var(--primary-dark);
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        }
+
+        .stButton > button[kind="primary"]:hover {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, #6be0c0, var(--primary-dark));
+        }
+
+        [data-testid="stMetric"] {
+            min-height: 7rem;
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+        }
+
+        [data-testid="stMetricLabel"] {
+            color: var(--muted);
+        }
+
+        [data-testid="stMetricValue"] {
+            color: var(--ink);
+            font-weight: 800;
+        }
+
+        [data-testid="stImage"] img {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        [data-testid="stDataFrame"] {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        div[data-testid="stAlert"] {
+            border-radius: 8px;
+            border-color: var(--line);
+            background: var(--surface-soft);
+            color: var(--ink);
+        }
+
+        hr {
+            margin: 1.4rem 0;
+            border-color: var(--line);
+        }
+
+        @media (max-width: 760px) {
+            [data-testid="stAppViewContainer"] > .main .block-container {
+                padding-top: 1rem;
+            }
+
+            .app-hero,
+            .quick-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .app-hero {
+                padding: 1.25rem;
+            }
+
+            .app-hero h1 {
+                max-width: 100%;
+                font-size: 2.15rem;
+            }
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 with st.sidebar:
     st.header("Proje Bilgisi")
     st.markdown(
@@ -41,11 +362,38 @@ with st.sidebar:
     )
     st.info("Veri grafikleri için `python src/train_model.py`, model karşılaştırması için `python src/train_model.py --model all` çalıştırabilirsin.")
 
-st.title("🛡️ Sahte İş İlanı Tespit Sistemi")
-st.write(
-    "Bu web uygulaması, girilen iş ilanının sahte olma olasılığını makine öğrenmesi ve "
-    "açıklanabilir risk kurallarıyla değerlendirir. Ayrıca proje sunumunda gösterilebilecek "
-    "veri analizi ve model performans grafiklerini içerir."
+st.markdown(
+    """
+    <section class="app-hero">
+        <div>
+            <p class="app-eyebrow">NLP + Makine Öğrenmesi</p>
+            <h1>Sahte İş İlanı Tespit Sistemi</h1>
+            <p>
+                Girilen iş ilanını model skoru ve açıklanabilir risk kurallarıyla değerlendirir;
+                analiz çıktıları, veri seti grafikleri ve sunum notlarını tek arayüzde toplar.
+            </p>
+        </div>
+        <div class="hero-badge">
+            <span>Karar Destek</span>
+            <strong>Risk skoru, tahmin sonucu ve gerekçeler birlikte gösterilir.</strong>
+        </div>
+    </section>
+    <section class="quick-stats" aria-label="Uygulama özeti">
+        <div class="quick-stat">
+            <b>TF-IDF tabanlı analiz</b>
+            <small>İlan metnindeki önemli ifadeler modele taşınır.</small>
+        </div>
+        <div class="quick-stat">
+            <b>Açıklanabilir skor</b>
+            <small>Kural sinyalleri nihai risk yorumunu destekler.</small>
+        </div>
+        <div class="quick-stat">
+            <b>Sunuma hazır raporlar</b>
+            <small>Veri ve performans grafikleri aynı panelde incelenir.</small>
+        </div>
+    </section>
+    """,
+    unsafe_allow_html=True,
 )
 
 tab_predict, tab_data, tab_model, tab_notes = st.tabs([
