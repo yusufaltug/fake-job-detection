@@ -370,7 +370,7 @@ st.markdown(
             <h1>Sahte İş İlanı Tespit Sistemi</h1>
             <p>
                 Girilen iş ilanını model skoru ve açıklanabilir risk kurallarıyla değerlendirir;
-                analiz çıktıları, veri seti grafikleri ve sunum notlarını tek arayüzde toplar.
+                analiz çıktıları, veri seti grafikleri ve model performansını tek arayüzde toplar.
             </p>
         </div>
         <div class="hero-badge">
@@ -388,7 +388,7 @@ st.markdown(
             <small>Kural sinyalleri nihai risk yorumunu destekler.</small>
         </div>
         <div class="quick-stat">
-            <b>Sunuma hazır raporlar</b>
+            <b>Performans raporları</b>
             <small>Veri ve performans grafikleri aynı panelde incelenir.</small>
         </div>
     </section>
@@ -396,11 +396,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-tab_predict, tab_data, tab_model, tab_notes = st.tabs([
+tab_predict, tab_data, tab_model = st.tabs([
     "🔍 İlan Analizi",
     "📊 Veri Seti Analizi",
     "📈 Model Performansı",
-    "🎬 Sunum İçin Notlar",
 ])
 
 with tab_predict:
@@ -552,23 +551,3 @@ with tab_model:
         image_if_exists(REPORTS_DIR / "roc_curve.png", "ROC eğrisi")
         image_if_exists(REPORTS_DIR / "precision_recall_curve.png", "Precision-Recall eğrisi")
         image_if_exists(REPORTS_DIR / "threshold_analysis.png", "Karar eşiği analizi")
-
-with tab_notes:
-    st.header("🎬 Sunumda Kullanabileceğin Kısa Anlatım")
-    notes_path = REPORTS_DIR / "presentation_notes.md"
-    if notes_path.exists():
-        st.markdown(notes_path.read_text(encoding="utf-8"))
-    else:
-        st.warning("Sunum notları henüz oluşmadı. `python src/train_model.py --model all` komutunu çalıştır.")
-
-    st.subheader("Video demo akışı")
-    st.markdown(
-        """
-        1. Proje adını ve problemi tanıt.  
-        2. Veri seti sekmesine geçip sınıf dengesizliğini ve eksik değerleri göster.  
-        3. Model performansı sekmesine geçip F1-score, ROC-AUC, confusion matrix ve precision-recall grafiğini açıkla.  
-        4. İlan analizi sekmesinde bir sahte ilan örneği dene.  
-        5. Bir gerçek ilan örneği dene.  
-        6. Sonuçta sistemin karar destek sistemi olduğunu, kesin hukuki karar vermediğini belirt.
-        """
-    )
